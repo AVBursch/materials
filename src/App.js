@@ -1,17 +1,25 @@
 import logo from './logo.svg';
 import React from 'react';
-import { Button, Container, Form, Dropdown } from 'react-bootstrap';
+import { Button, Container, Form, Dropdown, DropdownButton } from 'react-bootstrap';
 import './App.css';
 /*global sketchup*/
+
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      selectedMaterial: "Default"
     }
     window.test = this.test;
   }
+
+  handleMaterialSelect = (evtKey, evt) => {
+    // Get the selectedIndex in the evtKey variable
+    this.setState({ selectedMaterial: evtKey });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -23,6 +31,9 @@ class App extends React.Component {
 
           <h6>Text Description</h6>
 
+          <p>{this.state.selectedvalue}</p>
+          <p>{this.state.selectedMaterial}</p>
+
           <form action="/action_page.php">
             <textarea name="message" rows="3" cols="30">no material selected</textarea>
             <br></br>
@@ -30,130 +41,134 @@ class App extends React.Component {
 
           <h6>Material Type</h6>
 
-          <Dropdown>
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Materials
-                </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item as="button">  Default  </Dropdown.Item>
-              <Dropdown.Item as="button">  Metallic </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <br></br>
 
-          <h6>Text Description</h6>
-          <h6>Text Description</h6>
-          <h6>Text Description</h6>
+          <DropdownButton
+            alignRight
+            title="Materials"
+            id="dropdown-menu-align-right"
+            onSelect={this.handleMaterialSelect}
+          >
+            <Dropdown.Item eventKey="Default">Default</Dropdown.Item>
+            <Dropdown.Item eventKey="Metallic">Metallic</Dropdown.Item>
+            <Dropdown.Item eventKey="LEM">LEM</Dropdown.Item>
+          </DropdownButton>
 
-          <h6>Basic Properties</h6>
+          {
+            this.state.selectedMaterial === "LEM" ?
+              <div>
+                <h6>LEM</h6>
 
-          <Form>
-            <Form.Group controlId="formBasicRange">
-              <Form.Label>Diffuse</Form.Label>
-              <Form.Control type={"range"} min="1" max="100" value="50" />
-            </Form.Group>
-          </Form>
+                <Form>
+                  <Form.Group controlId="formBasicRange">
+                    <Form.Label>Light Power</Form.Label>
+                    <Form.Control type={"range"} min="1" max="100" />
+                  </Form.Group>
+                </Form>
 
-          <Form>
-            <Form.Group controlId="formBasicRange">
-              <Form.Label>Transparency</Form.Label>
-              <Form.Control type={"range"} min="1" max="100" value="50" />
-            </Form.Group>
-          </Form>
+                <Form>
+                  {['checkbox'].map((type) => (
+                    <div key={`inline-${type}`} className="mb-3">
+                      <Form.Check label="High Sensitivity" type={type} id={`inline-${type}-1`} />
+                    </div>
+                  ))}
+                </Form>
 
-          <Form>
-            <Form.Group controlId="formBasicRange">
-              <Form.Label>Reflection</Form.Label>
-              <Form.Control type={"range"} min="1" max="100" value="50" />
-            </Form.Group>
-          </Form>
+                <Form>
+                  {['checkbox'].map((type) => (
+                    <div key={`inline-${type}`} className="mb-3">
+                      <Form.Check label="Hidden" type={type} id={`inline-${type}-1`} />
+                    </div>
+                  ))}
+                </Form>
 
-
-          <Form>
-            {['checkbox'].map((type) => (
-              <div key={`inline-${type}`} className="mb-3">
-                <Form.Check label="Blurred Reflection" type={type} id={`inline-${type}-1`} />
               </div>
-            ))}
-          </Form>
+              :
+              <div>
+                <h6>Basic Properties</h6>
 
-          <Dropdown>
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Refraction
-                </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item as="button">  None  </Dropdown.Item>
-              <Dropdown.Item as="button">  Glass </Dropdown.Item>
-              <Dropdown.Item as="button">  Plexiglass </Dropdown.Item>
-              <Dropdown.Item as="button">  Water </Dropdown.Item>
-              <Dropdown.Item as="button">  Chrome </Dropdown.Item>
-              <Dropdown.Item as="button">  Steel </Dropdown.Item>
-              <Dropdown.Item as="button">  Aluminum  </Dropdown.Item>
-              <Dropdown.Item as="button">  Ceramic </Dropdown.Item>
-              <Dropdown.Item as="button">  Gold </Dropdown.Item>
-              <Dropdown.Item as="button">  Silver </Dropdown.Item>
-              <Dropdown.Item as="button">  Copper </Dropdown.Item>
-              <Dropdown.Item as="button">  Diamond </Dropdown.Item>
-              <Dropdown.Item as="button">  Oil </Dropdown.Item>
-              <Dropdown.Item as="button">  Jade </Dropdown.Item>
-              <Dropdown.Item as="button">  Custom </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+                <Form>
+                  <Form.Group controlId="formBasicRange">
+                    <Form.Label>Diffuse</Form.Label>
+                    <Form.Control type={"range"} min="1" max="100" />
+                  </Form.Group>
+                </Form>
 
-          <Form>
-            {['checkbox'].map((type) => (
-              <div key={`inline-${type}`} className="mb-3">
-                <Form.Check label="Blurred Transparency (tranlucence)" type={type} id={`inline-${type}-1`} />
+                <Form>
+                  <Form.Group controlId="formBasicRange">
+                    <Form.Label>Transparency</Form.Label>
+                    <Form.Control type={"range"} min="1" max="100" />
+                  </Form.Group>
+                </Form>
+
+                <Form>
+                  <Form.Group controlId="formBasicRange">
+                    <Form.Label>Reflection</Form.Label>
+                    <Form.Control type={"range"} min="1" max="100" />
+                  </Form.Group>
+                </Form>
+
+                <Form>
+                  {['checkbox'].map((type) => (
+                    <div key={`inline-${type}`} className="mb-3">
+                      <Form.Check label="Blurred Reflection" type={type} id={`inline-${type}-1`} />
+                    </div>
+                  ))}
+                </Form>
+
+                <DropdownButton
+                  alignRight
+                  title="Refraction"
+                  id="dropdown-menu-align-right"
+                >
+                  <Dropdown.Item eventKey="None">None</Dropdown.Item>
+                  <Dropdown.Item eventKey="Glass">Glass</Dropdown.Item>
+                  <Dropdown.Item eventKey="Plexiglass">Plexiglass</Dropdown.Item>
+                  <Dropdown.Item eventKey="Water">Water</Dropdown.Item>
+                  <Dropdown.Item eventKey="Chrome">Chrome</Dropdown.Item>
+                  <Dropdown.Item eventKey="Steel">Steel</Dropdown.Item>
+                  <Dropdown.Item eventKey="Aluminum">Aluminum</Dropdown.Item>
+                  <Dropdown.Item eventKey="Ceramic">Ceramic</Dropdown.Item>
+                  <Dropdown.Item eventKey="Gold">Gold</Dropdown.Item>
+                  <Dropdown.Item eventKey="Silver">Silver</Dropdown.Item>
+                  <Dropdown.Item eventKey="Copper">Copper</Dropdown.Item>
+                  <Dropdown.Item eventKey="Diamond">Diamond</Dropdown.Item>
+                  <Dropdown.Item eventKey="Oil">Oil</Dropdown.Item>
+                  <Dropdown.Item eventKey="Jade">Jade</Dropdown.Item>
+                  <Dropdown.Item eventKey="Custom">Custom</Dropdown.Item>
+                </DropdownButton>
+
+                <Form>
+                  {['checkbox'].map((type) => (
+                    <div key={`inline-${type}`} className="mb-3">
+                      <Form.Check label="Blurred Transparency (translucence)" type={type} id={`inline-${type}-1`} />
+                    </div>
+                  ))}
+                </Form>
+
+                <Form>
+                  <Form.Group controlId="formBasicRange">
+                    <Form.Label>Bump Depth</Form.Label>
+                    <Form.Control type={"range"} min="1" max="100" />
+                  </Form.Group>
+                </Form>
               </div>
-            ))}
-          </Form>
-
-          <Form>
-            <Form.Group controlId="formBasicRange">
-              <Form.Label>Bump Depth</Form.Label>
-              <Form.Control type={"range"} min="1" max="100" value="50" />
-            </Form.Group>
-          </Form>
-
-          <h6>LEM</h6>
-
-          <Form>
-            <Form.Group controlId="formBasicRange">
-              <Form.Label>Light Power</Form.Label>
-              <Form.Control type={"range"} min="1" max="100" value="50" />
-            </Form.Group>
-          </Form>
-
-          <Form>
-            {['checkbox'].map((type) => (
-              <div key={`inline-${type}`} className="mb-3">
-                <Form.Check label="High Sensitivity" type={type} id={`inline-${type}-1`} />
-              </div>
-            ))}
-          </Form>
-
-          <Form>
-            {['checkbox'].map((type) => (
-              <div key={`inline-${type}`} className="mb-3">
-                <Form.Check label="Hidden" type={type} id={`inline-${type}-1`} />
-              </div>
-            ))}
-          </Form>
+          }
 
           <h6>Advanced</h6>
 
-          <Dropdown>
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Edge Smoothing
-                </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item as="button">  Default  </Dropdown.Item>
-              <Dropdown.Item as="button">  None </Dropdown.Item>
-              <Dropdown.Item as="button">  Low </Dropdown.Item>
-              <Dropdown.Item as="button">  Standard </Dropdown.Item>
-              <Dropdown.Item as="button">  High </Dropdown.Item>
-              <Dropdown.Item as="button">  Ultra </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <DropdownButton
+            alignRight
+            title="Edge Smoothing"
+            id="dropdown-menu-align-right"
+          >
+            <Dropdown.Item eventKey="Default">Default</Dropdown.Item>
+            <Dropdown.Item eventKey="None">None</Dropdown.Item>
+            <Dropdown.Item eventKey="Low">Low</Dropdown.Item>
+            <Dropdown.Item eventKey="Standard">Standard</Dropdown.Item>
+            <Dropdown.Item eventKey="High">High</Dropdown.Item>
+            <Dropdown.Item eventKey="Ultra">Ultra</Dropdown.Item>
+          </DropdownButton>
 
           <Form>
             {['checkbox'].map((type) => (
