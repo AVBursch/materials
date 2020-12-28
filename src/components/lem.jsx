@@ -29,6 +29,7 @@ class LEM extends React.Component {
                                     lightPower: value
                                 }, () => {
                                     this.lightPowerInputRange.current.value = this.state.lightPower;
+                                    this.highIntensityInputCheckbox.current.disabled = this.state.lightPower < 1;
                                     this.props.handleUpdateLightPower(this.state.lightPower);
                                 })
                             }}
@@ -38,6 +39,7 @@ class LEM extends React.Component {
                             type="range"
                             min={0}
                             max={100}
+                            step={1}
                             defaultValue={this.props.lightPower}
                             onChange={(e) => {
                                 const value = e.target.value;
@@ -45,6 +47,7 @@ class LEM extends React.Component {
                                     lightPower: value
                                 }, () => {
                                     this.lightPowerInputNumber.current.value = this.state.lightPower;
+                                    this.highIntensityInputCheckbox.current.disabled = this.state.lightPower < 1;
                                     this.props.handleUpdateLightPower(this.state.lightPower);
                                 })
                             }}
@@ -56,7 +59,7 @@ class LEM extends React.Component {
                             ref={this.highIntensityInputCheckbox}
                             type="checkbox" 
                             defaultChecked={this.props.highIntensity}
-                            disabled={this.props.lightPower === 0}
+                            disabled={this.state.lightPower < 1}
                         />
                     </p>
                     <p>
@@ -65,7 +68,7 @@ class LEM extends React.Component {
                             ref={this.hiddenInputCheckbox}
                             type="checkbox" 
                             defaultChecked={this.props.hidden}
-                            disabled={this.props.lightPower === 0}
+                            disabled={this.state.lightPower < 1}
                         />
                     </p>
                 </div>

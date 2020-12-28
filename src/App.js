@@ -11,7 +11,7 @@ class App extends React.Component {
             selectMaterial: false,
             selectedMaterial: "No Material Selected",
             materialType: "Default",
-            
+
             // basic properties
             diffuse: 100,
             transparency: 0,
@@ -21,12 +21,12 @@ class App extends React.Component {
             refractionType: "None",
             blurredTransparency: false,
             bumpDepth: 0,
-            
+
             // lem
             lightPower: 0,
             highIntensity: false,
             hidden: false,
-            
+
             // advanced
             edgeSmoothing: "Default",
 
@@ -39,10 +39,22 @@ class App extends React.Component {
         return (
             <React.Fragment>
                 <div style={{ margin: 10 }}>
-                    <textarea rows={3} cols={30}>
-                        {this.state.selectedMaterial}
-                    </textarea>
-                    <input type="checkbox" />
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style={{border: '1px solid black', padding: 10}}>
+                                        {this.state.selectedMaterial}
+                                    </div>
+                                </td>
+                                <td>
+                                    <button>
+                                        <img src="./eye_dropper.png" />
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <p>
                         <label style={{ fontWeight: "bold", marginRight: 10 }}>Material Type</label>
                         <select defaultValue={this.state.materialType} onChange={(e) => {
@@ -99,43 +111,43 @@ class App extends React.Component {
             diffuse: value
         });
     }
-    
+
     handleUpdateTransparency = (value) => {
         this.setState({
             transparency: value
         });
     }
-    
+
     handleUpdateReflection = (value) => {
         this.setState({
             reflection: value
         });
     }
-    
+
     handleUpdateBlurredRefelection = (value) => {
         this.setState({
             blurredReflection: value
         });
     }
-    
+
     handleUpdateRefractionValue = (value) => {
         this.setState({
             refractionValue: value
         });
     }
-    
+
     handleUpdateRefractionType = (value) => {
         this.setState({
             refractionType: value
         });
     }
-    
+
     handleUpdateBlurredTransparency = (value) => {
         this.setState({
             blurredTransparency: value
         });
     }
-    
+
     handleUpdateBumpDepth = (value) => {
         this.setState({
             bumpDepth: value
