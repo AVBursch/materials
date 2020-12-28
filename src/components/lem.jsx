@@ -28,7 +28,10 @@ class LEM extends React.Component {
                                 this.setState({
                                     lightPower: value
                                 }, () => {
-                                    this.handleLightPowerUpdated();
+                                    this.lightPowerInputRange.current.value = this.state.lightPower;
+                                    this.highIntensityInputCheckbox.current.disabled = this.state.lightPower < 1;
+                                    this.hiddenInputCheckbox.current.disabled = this.state.lightPower < 1;
+                                    this.props.handleUpdateLightPower(this.state.lightPower);
                                 })
                             }}
                         />
@@ -44,25 +47,28 @@ class LEM extends React.Component {
                                 this.setState({
                                     lightPower: value
                                 }, () => {
-                                    this.handleLightPowerUpdated();
+                                    this.lightPowerInputNumber.current.value = this.state.lightPower;
+                                    this.highIntensityInputCheckbox.current.disabled = this.state.lightPower < 1;
+                                    this.hiddenInputCheckbox.current.disabled = this.state.lightPower < 1;
+                                    this.props.handleUpdateLightPower(this.state.lightPower);
                                 })
                             }}
                         />
                     </p>
                     <p>
                         <label style={{ marginRight: 10 }}>High Intesity: </label>
-                        <input 
+                        <input
                             ref={this.highIntensityInputCheckbox}
-                            type="checkbox" 
+                            type="checkbox"
                             defaultChecked={this.props.highIntensity}
                             disabled={this.state.lightPower < 1}
                         />
                     </p>
                     <p>
                         <label style={{ marginRight: 10 }}>Hidden: </label>
-                        <input 
+                        <input
                             ref={this.hiddenInputCheckbox}
-                            type="checkbox" 
+                            type="checkbox"
                             defaultChecked={this.props.hidden}
                             disabled={this.state.lightPower < 1}
                         />
@@ -71,12 +77,6 @@ class LEM extends React.Component {
 
             </React.Fragment>
         ) : null;
-    }
-
-    handleLightPowerUpdated = () => {
-        this.lightPowerInputRange.current.value = this.state.lightPower;
-        this.highIntensityInputCheckbox.current.disabled = this.state.lightPower < 1;
-        this.props.handleUpdateLightPower(this.state.lightPower);
     }
 }
 
