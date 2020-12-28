@@ -11,24 +11,25 @@ class App extends React.Component {
             selectMaterial: false,
             selectedMaterial: "No Material Selected",
             materialType: "Default",
-            basicProperties: {
-                diffuse: 100,
-                transparency: 0,
-                reflection: 0,
-                blurredReflection: false,
-                refractionValue: 0,
-                refractionType: "None",
-                blurredTransparency: false,
-                bumpDepth: 0
-            },
-            lem: {
-                lightPower: 0,
-                highIntensity: false,
-                hidden: false
-            },
-            advanced: {
-                edgeSmoothing: "Default"
-            },
+            
+            // basic properties
+            diffuse: 100,
+            transparency: 0,
+            reflection: 0,
+            blurredReflection: false,
+            refractionValue: 0,
+            refractionType: "None",
+            blurredTransparency: false,
+            bumpDepth: 0,
+            
+            // lem
+            lightPower: 0,
+            highIntensity: false,
+            hidden: false,
+            
+            // advanced
+            edgeSmoothing: "Default",
+
             castShadows: true
         }
         window.test = this.test;
@@ -37,13 +38,13 @@ class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div style={{margin: 10}}>
+                <div style={{ margin: 10 }}>
                     <textarea rows={3} cols={30}>
                         {this.state.selectedMaterial}
                     </textarea>
-                    <input type="checkbox"/>
+                    <input type="checkbox" />
                     <p>
-                        <label style={{fontWeight: "bold", marginRight: 10}}>Material Type</label>
+                        <label style={{ fontWeight: "bold", marginRight: 10 }}>Material Type</label>
                         <select defaultValue={this.state.materialType} onChange={(e) => {
                             const value = e.target.value;
                             this.setState({
@@ -56,45 +57,114 @@ class App extends React.Component {
                         </select>
                     </p>
                 </div>
-                <BasicProperties 
+                <BasicProperties
                     materialType={this.state.materialType}
-                    basicProperties={this.state.basicProperties}
-                    handleUpdateBasicProperties={this.handleUpdateBasicProperties}
+                    diffuse={this.state.diffuse}
+                    transparency={this.state.transparency}
+                    reflection={this.state.reflection}
+                    blurredReflection={this.state.blurredReflection}
+                    refractionValue={this.state.refractionValue}
+                    refractionType={this.state.refractionType}
+                    blurredTransparency={this.state.blurredTransparency}
+                    bumpDepth={this.state.bumpDepth}
+                    handleUpdateDiffuse={this.handleUpdateDiffuse}
+                    handleUpdateTransparency={this.handleUpdateTransparency}
+                    handleUpdateReflection={this.handleUpdateReflection}
+                    handleUpdateBlurredRefelection={this.handleUpdateBlurredRefelection}
+                    handleUpdateRefractionValue={this.handleUpdateRefractionValue}
+                    handleUpdateRefractionType={this.handleUpdateRefractionType}
+                    handleUpdateBlurredTransparency={this.handleUpdateBlurredTransparency}
+                    handleUpdateBumpDepth={this.handleUpdateBumpDepth}
                 />
-                <LEM 
+                <LEM
                     materialType={this.state.materialType}
-                    lem={this.state.lem}
-                    handleUpdateLEM={this.handleUpdateLEM}
+                    lightPower={this.state.lightPower}
+                    highIntensity={this.state.highIntensity}
+                    hidden={this.state.hidden}
+                    handleUpdateLightPower={this.handleUpdateLightPower}
+                    handleUpdateHighIntensity={this.handleUpdateHighIntensity}
+                    handleUpdateHidden={this.handleUpdateHidden}
                 />
-                <Advanced 
+                <Advanced
                     edgeSmoothing={this.state.edgeSmoothing}
-                    handleUpdateAdvanced={this.handleUpdateAdvanced}
+                    handleUpdateEdgeSmoothing={this.handleUpdateEdgeSmoothing}
                 />
             </React.Fragment>
         )
     }
 
-    handleUpdateMaterial = (value) => {
+    // Basic Properties
+    handleUpdateDiffuse = (value) => {
         this.setState({
-            material: value
+            diffuse: value
+        });
+    }
+    
+    handleUpdateTransparency = (value) => {
+        this.setState({
+            transparency: value
+        });
+    }
+    
+    handleUpdateReflection = (value) => {
+        this.setState({
+            reflection: value
+        });
+    }
+    
+    handleUpdateBlurredRefelection = (value) => {
+        this.setState({
+            blurredReflection: value
+        });
+    }
+    
+    handleUpdateRefractionValue = (value) => {
+        this.setState({
+            refractionValue: value
+        });
+    }
+    
+    handleUpdateRefractionType = (value) => {
+        this.setState({
+            refractionType: value
+        });
+    }
+    
+    handleUpdateBlurredTransparency = (value) => {
+        this.setState({
+            blurredTransparency: value
+        });
+    }
+    
+    handleUpdateBumpDepth = (value) => {
+        this.setState({
+            bumpDepth: value
         });
     }
 
-    handleUpdateBasicProperties = (value) => {
+    // LEM
+    handleUpdateLightPower = (value) => {
         this.setState({
-            basicProperties: value
+            lightPower: value
         });
     }
 
-    handleUpdateLEM = (value) => {
+    handleUpdateHighIntensity = (value) => {
         this.setState({
-            lem: value
+            highIntensity: value
         });
     }
 
-    handleUpdateAdvanced = (value) => {
+    handleUpdateHidden = (value) => {
         this.setState({
-            advanced: value
+            hidden: value
+        });
+    }
+
+    // Advanced
+    handleUpdateEdgeSmoothing = (value) => {
+        this.setState({
+            edgeSmoothing: value
         });
     }
 
