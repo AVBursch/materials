@@ -28,9 +28,7 @@ class LEM extends React.Component {
                                 this.setState({
                                     lightPower: value
                                 }, () => {
-                                    this.lightPowerInputRange.current.value = this.state.lightPower;
-                                    this.highIntensityInputCheckbox.current.disabled = this.state.lightPower < 1;
-                                    this.props.handleUpdateLightPower(this.state.lightPower);
+                                    this.handleLightPowerUpdated();
                                 })
                             }}
                         />
@@ -46,9 +44,7 @@ class LEM extends React.Component {
                                 this.setState({
                                     lightPower: value
                                 }, () => {
-                                    this.lightPowerInputNumber.current.value = this.state.lightPower;
-                                    this.highIntensityInputCheckbox.current.disabled = this.state.lightPower < 1;
-                                    this.props.handleUpdateLightPower(this.state.lightPower);
+                                    this.handleLightPowerUpdated();
                                 })
                             }}
                         />
@@ -75,6 +71,12 @@ class LEM extends React.Component {
 
             </React.Fragment>
         ) : null;
+    }
+
+    handleLightPowerUpdated = () => {
+        this.lightPowerInputRange.current.value = this.state.lightPower;
+        this.highIntensityInputCheckbox.current.disabled = this.state.lightPower < 1;
+        this.props.handleUpdateLightPower(this.state.lightPower);
     }
 }
 
