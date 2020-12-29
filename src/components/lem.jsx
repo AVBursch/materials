@@ -16,6 +16,8 @@ class LEM extends React.Component {
     render() {
         return this.props.materialType === "LEM" ? (
             <React.Fragment>
+                LEM
+
                 <div style={{ margin: 10 }}>
                     <p>
                         <label style={{ marginRight: 10 }}>Light Power: </label>

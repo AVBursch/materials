@@ -43,7 +43,7 @@ class App extends React.Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <div style={{border: '1px solid black', padding: 10}}>
+                                    <div style={{ border: '1px solid black', padding: 10 }}>
                                         {this.state.selectedMaterial}
                                     </div>
                                 </td>
@@ -99,6 +99,7 @@ class App extends React.Component {
                 />
                 <Advanced
                     edgeSmoothing={this.state.edgeSmoothing}
+                    castShadows={this.state.castShadows}
                     handleUpdateEdgeSmoothing={this.handleUpdateEdgeSmoothing}
                 />
             </React.Fragment>
