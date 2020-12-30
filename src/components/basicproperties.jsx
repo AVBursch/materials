@@ -6,6 +6,10 @@ class BasicProperties extends React.Component {
 
         this.state = {
             diffuse: this.props.diffuse,
+            transparency: this.props.transparency,
+            reflection: this.props.reflection,
+            refractionType: this.props.refractionType,
+            refractionValue: this.props.refractionValue
 
         };
         this.diffuseInputNumber = React.createRef();
@@ -18,6 +22,8 @@ class BasicProperties extends React.Component {
         this.blurredTransparencyInputCheckbox = React.createRef();
         this.bumpDepthInputNumber = React.createRef();
         this.bumpDepthInputRange = React.createRef();
+        this.refractionInputType = React.createRef();
+        this.refractionInputNumber = React.createRef();
     }
 
     render() {
@@ -71,7 +77,7 @@ class BasicProperties extends React.Component {
                             this.setState({
                                 transparency: value
                             }, () => {
-                                this.transparencyInputRange.current.value = this.state.diffuse;
+                                this.transparencyInputRange.current.value = this.state.transparency;
                                 this.props.handleUpdateTransparency(this.state.transparency);
                             })
                         }}
@@ -139,6 +145,60 @@ class BasicProperties extends React.Component {
                     />
                 </p>
 
+
+
+
+
+                <p>
+                    <label style={{ marginRight: 10 }}>Refraction: </label>
+                    <input
+                        ref={this.refractionInputNumber}
+                        type="number"
+                        defaultValue={this.props.refractionValue}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            this.setState({
+                                refractionType: value
+                            }, () => {
+                                this.refractionInputNumber.current.value = this.state.refractionType;
+                                this.props.handleUpdateRefractionValue(this.state.refractionType);
+                            })
+                        }}
+                    />
+
+
+                    <select refractionType={this.state.refractionType}
+
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            const refractionvalue = this.getRefractionValue(value);
+                            this.setState({ refractionType: value, refractionValue: refractionvalue },
+                                () => {
+                                    this.refractionInputNumber.current.value = this.state.refractionValue;
+                                    this.props.handleUpdateRefractionType(this.state.refractionType);
+                                });
+                        }}
+
+                    >
+                        <option value="None">None</option>
+                        <option value="Glass">Glass</option>
+                        <option value="Plexiglass">Plexiglass</option>
+                        <option value="Water">Water</option>
+                        <option value="Chrome">Chrome</option>
+                        <option value="Steel">Steel</option>
+                        <option value="Aluminum">Aluminum</option>
+                        <option value="Ceramic">Ceramic</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Copper">Copper</option>
+                        <option value="Diamond">Diamond</option>
+                        <option value="Oil">Oil</option>
+                        <option value="Jade">Jade</option>
+                        <option value="Custom">Custom</option>
+                    </select>
+
+                </p>
+
                 {/* Refraction section here */}
 
                 <p>
@@ -186,6 +246,43 @@ class BasicProperties extends React.Component {
                 </p>
             </React.Fragment>
         ) : null;
+    }
+
+    getRefractionValue = (value) => {
+        let number = 0;
+
+        if (value === "None")
+            number = 0.0;
+        else if (value === "Glass")
+            number = 1.5174;
+        else if (value === "Plexiglass")
+            number = 1.49;
+        else if (value === "Water")
+            number = 1.33;
+        else if (value === "Chrome")
+            number = 2.97;
+        else if (value === "Steel")
+            number = 2.50;
+        else if (value === "Aluminum")
+            number = 1.39;
+        else if (value === "Ceramic")
+            number = 4.00;
+        else if (value === "Gold")
+            number = 0.47;
+        else if (value === "Silver")
+            number = 1.35;
+        else if (value === "Copper")
+            number = 2.43;
+        else if (value === "Diamond")
+            number = 2.42;
+        else if (value === "Oil")
+            number = 1.47;
+        else if (value === "Jade")
+            number = 2.42;
+        else if (value === "Custom")
+            number = 0.00;
+
+        return number;
     }
 }
 

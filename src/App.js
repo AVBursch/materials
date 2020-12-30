@@ -110,6 +110,8 @@ class App extends React.Component {
     handleUpdateDiffuse = (value) => {
         this.setState({
             diffuse: value
+        }, () => {
+            sketchup.updateDiffuse(this.state.diffuse);
         });
     }
 
@@ -125,7 +127,7 @@ class App extends React.Component {
         });
     }
 
-    handleUpdateBlurredRefelection = (value) => {
+    handleUpdateBlurredReflection = (value) => {
         this.setState({
             blurredReflection: value
         });
