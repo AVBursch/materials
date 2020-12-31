@@ -118,42 +118,56 @@ class App extends React.Component {
     handleUpdateTransparency = (value) => {
         this.setState({
             transparency: value
+        }, () => {
+            sketchup.updateTransparency(this.state.transparency);
         });
     }
 
     handleUpdateReflection = (value) => {
         this.setState({
             reflection: value
+        }, () => {
+            sketchup.updateReflection(this.state.reflection);
         });
     }
 
     handleUpdateBlurredReflection = (value) => {
         this.setState({
             blurredReflection: value
+        }, () => {
+            sketchup.updateBlurredReflection(this.state.blurredReflection);
         });
     }
 
     handleUpdateRefractionValue = (value) => {
         this.setState({
             refractionValue: value
+        }, () => {
+            sketchup.updateRefractionValue(this.state.refractionValue);
         });
     }
 
     handleUpdateRefractionType = (value) => {
         this.setState({
             refractionType: value
+        }, () => {
+            sketchup.updateRefractionType(this.state.refractionType);
         });
     }
 
     handleUpdateBlurredTransparency = (value) => {
         this.setState({
             blurredTransparency: value
+        }, () => {
+            sketchup.updateBlurredTransparency(this.state.blurredTransparency);
         });
     }
 
     handleUpdateBumpDepth = (value) => {
         this.setState({
             bumpDepth: value
+        }, () => {
+            sketchup.updateBumpDepth(this.state.bumpDepth);
         });
     }
 
@@ -161,12 +175,16 @@ class App extends React.Component {
     handleUpdateLightPower = (value) => {
         this.setState({
             lightPower: value
+        }, () => {
+            sketchup.updateLightPower(this.state.lightPower);
         });
     }
 
     handleUpdateHighIntensity = (value) => {
         this.setState({
             highIntensity: value
+        }, () => {
+            sketchup.updateHighIntensity(this.state.highIntensity);
         });
     }
 
@@ -180,6 +198,8 @@ class App extends React.Component {
     handleUpdateEdgeSmoothing = (value) => {
         this.setState({
             edgeSmoothing: value
+        }, () => {
+            sketchup.updateEdgeSmoothing(this.state.edgeSmoothing);
         });
     }
 
