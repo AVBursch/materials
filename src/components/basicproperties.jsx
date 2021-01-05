@@ -9,7 +9,8 @@ class BasicProperties extends React.Component {
             transparency: this.props.transparency,
             reflection: this.props.reflection,
             refractionType: this.props.refractionType,
-            refractionValue: this.props.refractionValue
+            refractionValue: this.props.refractionValue,
+            blurredTransparency: this.props.blurredTransparency
 
         };
         this.diffuseInputNumber = React.createRef();
@@ -207,6 +208,14 @@ class BasicProperties extends React.Component {
                         ref={this.blurredTransparencyInputCheckbox}
                         type="checkbox"
                         defaultChecked={this.props.blurredTransparency}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            this.setState({ blurredTransparency: value }, () => {
+                                this.blurredTransparencyInputCheckbox.current.value = this.state.blurredTransparency;
+                                this.props.handleUpdateBlurredTransparency(this.state.blurredTransparency);
+                            });
+
+                        }}
                     />
                 </p>
 
@@ -238,7 +247,7 @@ class BasicProperties extends React.Component {
                             this.setState({
                                 bumpDepth: value
                             }, () => {
-                                this.bumpDepthInputNumber.current.value = this.state.bumpDepth;
+                                this.bumpDepthInputRange.current.value = this.state.bumpDepth;
                                 this.props.handleUpdateBumpDepth(this.state.bumpDepth);
                             })
                         }}

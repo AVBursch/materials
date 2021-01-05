@@ -101,6 +101,7 @@ class App extends React.Component {
                     edgeSmoothing={this.state.edgeSmoothing}
                     castShadows={this.state.castShadows}
                     handleUpdateEdgeSmoothing={this.handleUpdateEdgeSmoothing}
+                    handleUpdateCastShadows={this.handleUpdateCastShadows}
                 />
             </React.Fragment>
         )
@@ -200,6 +201,14 @@ class App extends React.Component {
             edgeSmoothing: value
         }, () => {
             sketchup.updateEdgeSmoothing(this.state.edgeSmoothing);
+        });
+    }
+
+    handleUpdateCastShadows = (value) => {
+        this.setState({
+            castShadows: value
+        }, () => {
+            sketchup.UpdateCastShadows(this.state.castShadows);
         });
     }
 

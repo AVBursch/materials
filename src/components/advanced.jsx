@@ -5,10 +5,12 @@ class Advanced extends React.Component {
         super(props);
 
         this.state = {
-
+            edgeSmoothing: this.props.edgeSmoothing,
+            castShadows: this.props.castShadows
         };
 
         this.castShadowsInputCheckbox = React.createRef();
+        this.edgeSmoothingInputType = React.createRef();
     }
 
     render() {
@@ -22,6 +24,9 @@ class Advanced extends React.Component {
                         const value = e.target.value;
                         this.setState({
                             edgeSmoothing: value
+                        }, () => {
+                            this.edgeSmoothingInputType.current.value = this.state.edgeSmoothing;
+                            this.props.handleUpdateEdgeSmoothing(this.state.edgeSmoothing);
                         });
                     }}>
                         <option value="Default">Default</option>
@@ -38,8 +43,14 @@ class Advanced extends React.Component {
                     <input
                         ref={this.castShadowsInputCheckbox}
                         type="checkbox"
-                        defaultChecked={this.props.castShadows}
-                    />
+                        defaultChecked={this.props.castShadows} onChange={(e) => {
+                            const value = e.target.value;
+                            this.setState({ castShadows: value }, () => {
+                                this.castShadowsInputCheckbox.current.value = this.state.castShadows;
+                                this.props.handleUpdateCastShadows(this.state.castShadows);
+                            });
+
+                        }} />
                 </p>
 
                 <button  >
